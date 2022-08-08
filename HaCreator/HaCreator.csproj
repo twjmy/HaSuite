@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HaCreator</RootNamespace>
     <AssemblyName>HaCreator</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -35,6 +35,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -112,12 +114,35 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AtkSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AtkSharp.3.22.25.56\lib\netstandard2.0\AtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CairoSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CairoSharp.3.22.25.56\lib\netstandard2.0\CairoSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GdkSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GdkSharp.3.22.25.56\lib\netstandard2.0\GdkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GioSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GioSharp.3.22.25.56\lib\netstandard2.0\GioSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GLibSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GLibSharp.3.22.25.56\lib\netstandard2.0\GLibSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GtkSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GtkSharp.3.22.25.56\lib\netstandard2.0\GtkSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="MonoGame.Framework">
-      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.Gtk.3.8.0.5\lib\netstandard2.0\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PangoSharp, Version=3.22.25.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PangoSharp.3.22.25.56\lib\netstandard2.0\PangoSharp.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -724,6 +749,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="HaCreator.res" />
+    <None Include="packages.config" />
     <None Include="Resources\mapEditMenu.png" />
     <Resource Include="Images\About.png" />
     <Resource Include="Images\diagram_parallax.png" />
@@ -805,6 +831,15 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\GtkSharp.3.22.25.56\build\GtkSharp.targets" Condition="Exists('..\packages\GtkSharp.3.22.25.56\build\GtkSharp.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\GtkSharp.3.22.25.56\build\GtkSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GtkSharp.3.22.25.56\build\GtkSharp.targets'))" />
+    <Error Condition="!Exists('..\packages\MonoGame.Framework.Gtk.3.8.0.5\build\MonoGame.Framework.Gtk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.Gtk.3.8.0.5\build\MonoGame.Framework.Gtk.targets'))" />
+  </Target>
+  <Import Project="..\packages\MonoGame.Framework.Gtk.3.8.0.5\build\MonoGame.Framework.Gtk.targets" Condition="Exists('..\packages\MonoGame.Framework.Gtk.3.8.0.5\build\MonoGame.Framework.Gtk.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
